@@ -52,6 +52,10 @@ pub mod geometryMod {
                 self.x * otherVec3.y - self.y * otherVec3.x,
             );
         }
+
+        pub fn get_projected_position(&self, m_w: i32, m_h: i32) -> (i32, i32) {
+            return (self.x as i32 + m_w, self.y as i32 + m_h);
+        }
     }
 
     #[derive(Debug, Copy, Clone)]

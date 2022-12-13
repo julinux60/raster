@@ -28,50 +28,17 @@ fn main() {
         d.draw_fps(10, 10);
 
         for i in 0..triangle_vec.len() {
-            // d.draw_circle(
-            //     triangle_vec[i].a.x as i32 + M_W,
-            //     triangle_vec[i].a.y as i32 + M_H,
-            //     10.0,
-            //     Color::WHITE,
-            // );
-            //
-            // d.draw_circle(
-            //     triangle_vec[i].b.x as i32 + M_W,
-            //     triangle_vec[i].b.y as i32 + M_H,
-            //     10.0,
-            //     Color::WHITE,
-            // );
-            //
-            // d.draw_circle(
-            //     triangle_vec[i].c.x as i32 + M_W,
-            //     triangle_vec[i].c.y as i32 + M_H,
-            //     10.0,
-            //     Color::WHITE,
-            // );
+            let pa = triangle_vec[i].a.get_projected_position(M_W, M_H);
+            let pb = triangle_vec[i].b.get_projected_position(M_W, M_H);
+            let pc = triangle_vec[i].c.get_projected_position(M_W, M_H);
 
-            d.draw_line(
-                triangle_vec[i].a.x as i32 + M_W,
-                triangle_vec[i].a.y as i32 + M_H,
-                triangle_vec[i].b.x as i32 + M_W,
-                triangle_vec[i].b.y as i32 + M_H,
-                Color::WHITE,
-            );
+            // d.draw_circle(pa.0, pa.1, 5.0, Color::WHITE);
+            // d.draw_circle(pb.0, pb.1, 5.0, Color::WHITE);
+            // d.draw_circle(pc.0, pc.1, 5.0, Color::WHITE);
 
-            d.draw_line(
-                triangle_vec[i].c.x as i32 + M_W,
-                triangle_vec[i].c.y as i32 + M_H,
-                triangle_vec[i].b.x as i32 + M_W,
-                triangle_vec[i].b.y as i32 + M_H,
-                Color::WHITE,
-            );
-
-            d.draw_line(
-                triangle_vec[i].a.x as i32 + M_W,
-                triangle_vec[i].a.y as i32 + M_H,
-                triangle_vec[i].c.x as i32 + M_W,
-                triangle_vec[i].c.y as i32 + M_H,
-                Color::WHITE,
-            );
+            d.draw_line(pa.0, pa.1, pb.0, pb.1, Color::WHITE);
+            d.draw_line(pc.0, pc.1, pb.0, pb.1, Color::WHITE);
+            d.draw_line(pa.0, pa.1, pc.0, pc.1, Color::WHITE);
         }
     }
 }
