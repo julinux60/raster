@@ -7,9 +7,39 @@ use raylib::prelude::*;
 
 fn main() {
     //init
-    let center_of_cube = Vec3J::new(0.0, 0.0, 0.0);
 
-    let mut triangle_vec: Vec<TriangleJ> = create_cube(Vec3J::new(0.0, 0.0, 0.0), 150.0);
+    let mut projection_matrix : [[f32; 4]; 4];
+
+    let mut triangle_vec: Vec<TriangleJ> = Vec::new(); //create_cube(Vec3J::new(0.0, 0.0, 0.0), 150.0);
+    let mut object_vec: Vec<Object3d> = Vec::new();
+
+    object_vec.push(Object3d::new(
+        triangle_vec.len(),
+        triangle_vec.len() + 8,
+        Vec3J::new(200.0, 0.0, 0.0),
+    ));
+    triangle_vec.append(&mut create_cube(Vec3J::new(200.0, 0.0, 0.0), 50.0));
+
+    object_vec.push(Object3d::new(
+        triangle_vec.len(),
+        triangle_vec.len() + 8,
+        Vec3J::new(0.0, 0.0, 0.0),
+    ));
+    triangle_vec.append(&mut create_cube(Vec3J::new(0.0, 0.0, 0.0), 50.0));
+
+    object_vec.push(Object3d::new(
+        triangle_vec.len(),
+        triangle_vec.len() + 8,
+        Vec3J::new(-200.0, 0.0, 0.0),
+    ));
+    triangle_vec.append(&mut create_cube(Vec3J::new(-200.0, 0.0, 0.0), 50.0));
+
+    for object_i in 0..object_vec.len() {
+        for i in object_vec[object_i].first_ref..object_vec[object_i].last_ref {
+            triangle_vec[i].rotateZ(3.14159 / 4.0, object_vec[object_i].center);
+            triangle_vec[i].rotateY(3.14159 / 4.0, object_vec[object_i].center);
+        }
+    }
 
     let (mut rl, thread) = raylib::init().size(W, H).title("Rasterization").build();
     rl.set_target_fps(75);
@@ -17,9 +47,26 @@ fn main() {
     while !rl.window_should_close() {
         //updating
 
-        for i in 0..triangle_vec.len() {
-            triangle_vec[i].rotateZ(0.04, center_of_cube);
-            triangle_vec[i].rotateY(0.03, center_of_cube);
+        // for object_i in 0..object_vec.len() {
+        //     for i in object_vec[object_i].first_ref..object_vec[object_i].last_ref {
+        //         triangle_vec[i].rotateZ(0.04, object_vec[object_i].center);
+        //         triangle_vec[i].rotateY(0.03, object_vec[object_i].center);
+        //     }
+        // }
+
+        for i in object_vec[0].first_ref..object_vec[0].last_ref {
+            // triangle_vec[i].rotateZ(0.04, object_vec[0].center);
+            triangle_vec[i].rotateX(0.03, object_vec[0].center);
+        }
+
+        for i in object_vec[1].first_ref..object_vec[1].last_ref {
+            triangle_vec[i].rotateY(-0.04, object_vec[1].center);
+            // triangle_vec[i].rotateY(-0.03, object_vec[1].center);
+        }
+
+        for i in object_vec[2].first_ref..object_vec[2].last_ref {
+            triangle_vec[i].rotateZ(-0.04, object_vec[2].center);
+            // triangle_vec[i].rotateY(0.03, object_vec[2].center);
         }
 
         let mut d = rl.begin_drawing(&thread);
@@ -31,10 +78,6 @@ fn main() {
             let pa = triangle_vec[i].a.get_projected_position(M_W, M_H);
             let pb = triangle_vec[i].b.get_projected_position(M_W, M_H);
             let pc = triangle_vec[i].c.get_projected_position(M_W, M_H);
-
-            // d.draw_circle(pa.0, pa.1, 5.0, Color::WHITE);
-            // d.draw_circle(pb.0, pb.1, 5.0, Color::WHITE);
-            // d.draw_circle(pc.0, pc.1, 5.0, Color::WHITE);
 
             d.draw_line(pa.0, pa.1, pb.0, pb.1, Color::WHITE);
             d.draw_line(pc.0, pc.1, pb.0, pb.1, Color::WHITE);

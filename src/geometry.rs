@@ -79,6 +79,7 @@ pub mod geometryMod {
             println!("B : {:?}", self.b);
             println!("C : {:?}\n", self.c);
         }
+
         pub fn rotateX(&mut self, x: f32, rotationPoint: Vec3J) {
             let mut nA = self.a.sub(rotationPoint);
             let mut nB = self.b.sub(rotationPoint);
@@ -160,6 +161,23 @@ pub mod geometryMod {
                 self.b = nB;
                 self.c = nC;
             }
+        }
+    }
+
+    #[derive(Debug, Copy, Clone)]
+    pub struct Object3d {
+        pub first_ref: usize,
+        pub last_ref: usize,
+        pub center: Vec3J,
+    }
+
+    impl Object3d {
+        pub fn new(f_ref: usize, l_ref: usize, center: Vec3J) -> Object3d {
+            return Object3d {
+                first_ref: f_ref,
+                last_ref: l_ref,
+                center: center,
+            };
         }
     }
 }
