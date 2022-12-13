@@ -48,23 +48,23 @@ pub fn create_cube(center: Vec3J, cube_size: f32) -> Vec<TriangleJ> {
     let mid_w = center.x; //(W / 2) as f32;
     let mid_h = center.y; //(H / 2) as f32;
 
-    let A: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, cube_size);
-    let B: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, cube_size);
-    let C: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, -cube_size);
-    let D: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, -cube_size);
-    let E: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, cube_size);
-    let F: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, cube_size);
-    let G: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, -cube_size);
-    let H2: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, -cube_size);
+    let c_a: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, cube_size);
+    let c_b: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, cube_size);
+    let c_c: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, -cube_size);
+    let c_d: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, -cube_size);
+    let c_e: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, cube_size);
+    let c_f: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, cube_size);
+    let c_g: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, -cube_size);
+    let c_h: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, -cube_size);
 
-    tab_retour_triangle.push(TriangleJ::new(A, B, D));
-    tab_retour_triangle.push(TriangleJ::new(D, B, C));
-    tab_retour_triangle.push(TriangleJ::new(A, E, B));
-    tab_retour_triangle.push(TriangleJ::new(E, B, F));
-    tab_retour_triangle.push(TriangleJ::new(D, G, C));
-    tab_retour_triangle.push(TriangleJ::new(D, H2, G));
-    tab_retour_triangle.push(TriangleJ::new(F, H2, G));
-    tab_retour_triangle.push(TriangleJ::new(E, H2, F));
+    tab_retour_triangle.push(TriangleJ::new(c_a, c_b, c_d));
+    tab_retour_triangle.push(TriangleJ::new(c_d, c_b, c_c));
+    tab_retour_triangle.push(TriangleJ::new(c_a, c_e, c_b));
+    tab_retour_triangle.push(TriangleJ::new(c_e, c_b, c_f));
+    tab_retour_triangle.push(TriangleJ::new(c_d, c_g, c_c));
+    tab_retour_triangle.push(TriangleJ::new(c_d, c_h, c_g));
+    tab_retour_triangle.push(TriangleJ::new(c_f, c_h, c_g));
+    tab_retour_triangle.push(TriangleJ::new(c_e, c_h, c_f));
 
     return tab_retour_triangle;
 }
