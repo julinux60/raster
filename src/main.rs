@@ -45,17 +45,50 @@ fn main() {
 
 pub fn create_cube(center: Vec3J, cube_size: f32) -> Vec<TriangleJ> {
     let mut tab_retour_triangle: Vec<TriangleJ> = Vec::new();
-    let mid_w = center.x; //(W / 2) as f32;
-    let mid_h = center.y; //(H / 2) as f32;
+    let offset_x_c = center.x; //(W / 2) as f32;
+    let offset_y_c = center.y; //(H / 2) as f32;
+    let offset_z_c = center.z; //(H / 2) as f32;
 
-    let c_a: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, cube_size);
-    let c_b: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, cube_size);
-    let c_c: Vec3J = Vec3J::new(-cube_size + mid_w, cube_size + mid_h, -cube_size);
-    let c_d: Vec3J = Vec3J::new(cube_size + mid_w, cube_size + mid_h, -cube_size);
-    let c_e: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, cube_size);
-    let c_f: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, cube_size);
-    let c_g: Vec3J = Vec3J::new(-cube_size + mid_w, -cube_size + mid_h, -cube_size);
-    let c_h: Vec3J = Vec3J::new(cube_size + mid_w, -cube_size + mid_h, -cube_size);
+    let c_a: Vec3J = Vec3J::new(
+        cube_size + offset_x_c,
+        cube_size + offset_y_c,
+        cube_size + offset_z_c,
+    );
+    let c_b: Vec3J = Vec3J::new(
+        -cube_size + offset_x_c,
+        cube_size + offset_y_c,
+        cube_size + offset_z_c,
+    );
+    let c_c: Vec3J = Vec3J::new(
+        -cube_size + offset_x_c,
+        cube_size + offset_y_c,
+        -cube_size + offset_z_c,
+    );
+    let c_d: Vec3J = Vec3J::new(
+        cube_size + offset_x_c,
+        cube_size + offset_y_c,
+        -cube_size + offset_z_c,
+    );
+    let c_e: Vec3J = Vec3J::new(
+        cube_size + offset_x_c,
+        -cube_size + offset_y_c,
+        cube_size + offset_z_c,
+    );
+    let c_f: Vec3J = Vec3J::new(
+        -cube_size + offset_x_c,
+        -cube_size + offset_y_c,
+        cube_size + offset_z_c,
+    );
+    let c_g: Vec3J = Vec3J::new(
+        -cube_size + offset_x_c,
+        -cube_size + offset_y_c,
+        -cube_size + offset_z_c,
+    );
+    let c_h: Vec3J = Vec3J::new(
+        cube_size + offset_x_c,
+        -cube_size + offset_y_c,
+        -cube_size + offset_z_c,
+    );
 
     tab_retour_triangle.push(TriangleJ::new(c_a, c_b, c_d));
     tab_retour_triangle.push(TriangleJ::new(c_d, c_b, c_c));
