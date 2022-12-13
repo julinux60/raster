@@ -56,6 +56,29 @@ pub mod geometryMod {
         pub fn get_projected_position(&self, m_w: i32, m_h: i32) -> (i32, i32) {
             return (self.x as i32 + m_w, self.y as i32 + m_h);
         }
+
+        pub fn mult_point_matrix(v_in: &Vec3J, m: &[[f32; 4]; 4]) -> Vec3J {
+            let mut retour_vecj = Vec3J::new(0.0, 0.0, 0.0);
+
+            retour_vecj.x =
+                v_in.x * m[0][0] + v_in.y * m[1][0] + v_in.z * m[2][0] + /* v_in.z = 1 */ m[3][0];
+            retour_vecj.y =
+                v_in.x * m[0][1] + v_in.y * m[1][1] + v_in.z * m[2][1] + /* v_in.z = 1 */ m[3][1];
+            retour_vecj.z =
+                v_in.x * m[0][2] + v_in.y * m[1][2] + v_in.z * m[2][2] + /* v_in.z = 1 */ m[3][2];
+            let w: f32 =
+                v_in.x * m[0][3] + v_in.y * m[1][3] + v_in.z * m[2][3] + /* v_in.z = 1 */ m[3][3];
+
+            println!("{:?}", w);
+
+            if (w != 1.0) {
+                retour_vecj.x /= w;
+                retour_vecj.y /= w;
+                retour_vecj.z /= w;
+            }
+
+            return retour_vecj;
+        }
     }
 
     #[derive(Debug, Copy, Clone)]
